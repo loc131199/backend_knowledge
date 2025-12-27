@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import HomeView from '../views/HomeView.vue'
-import { useAuthStore } from '../store/auth'
+import AdminUsersView from '../views/AdminUsersView.vue'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -10,13 +10,14 @@ const router = createRouter({
     { path: '/', name: 'home', component: HomeView, meta: { requiresAuth: true } },
     { path: '/login', name: 'login', component: LoginView },
     { path: '/register', name: 'register', component: RegisterView },
+    { path: '/admin', name: 'admin', component: AdminUsersView, meta: { requiresAuth: true } },
   ]
 })
 
-// Chặn truy cập nếu chưa đăng nhập
+// ✅ Router guard an toàn
 router.beforeEach((to, from, next) => {
-  const auth = useAuthStore()
-  if (to.meta.requiresAuth && !auth.user) {
+  const token = localStorage.getItem('token')
+  if (to.meta.requiresAuth && !token) {
     next('/login')
   } else {
     next()

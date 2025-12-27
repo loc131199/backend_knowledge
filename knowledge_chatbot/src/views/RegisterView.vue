@@ -9,11 +9,6 @@
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-          <input v-model="email" type="email" placeholder="Nhập email..." />
-        </div>
-
-        <div class="form-group">
           <label>Mật khẩu</label>
           <input v-model="password" type="password" placeholder="Nhập mật khẩu..." />
         </div>
@@ -45,17 +40,16 @@ const auth = useAuthStore()
 const router = useRouter()
 
 const username = ref('')
-const email = ref('')
 const password = ref('')
 const confirmPassword = ref('')
 const error = ref('')
 const success = ref('')
 
-function handleRegister() {
+async function handleRegister() {
   error.value = ''
   success.value = ''
 
-  if (!username.value || !email.value || !password.value || !confirmPassword.value) {
+  if (!username.value || !password.value || !confirmPassword.value) {
     error.value = 'Vui lòng điền đầy đủ thông tin.'
     return
   }
@@ -66,14 +60,15 @@ function handleRegister() {
   }
 
   try {
-    auth.register(username.value, password.value)
-    success.value = 'Đăng ký thành công! Hãy đăng nhập để tiếp tục.'
+    await auth.register(username.value, password.value)
+    success.value = 'Đăng ký thành công! Chuyển sang đăng nhập...'
     setTimeout(() => router.push('/login'), 1500)
   } catch (err) {
-    error.value = err.message
+    error.value = err.message || 'Đăng ký thất bại'
   }
 }
 </script>
+
 
 <style scoped>
 /* Toàn màn hình gradient */

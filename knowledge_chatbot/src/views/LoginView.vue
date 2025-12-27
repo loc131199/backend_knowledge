@@ -37,16 +37,17 @@ const username = ref('')
 const password = ref('')
 const error = ref('')
 
-function handleLogin() {
+async function handleLogin() {
   error.value = ''
   try {
-    auth.login(username.value, password.value)
-    router.push('/')
+    await auth.login(username.value, password.value)
+    router.push('/') // hoặc /chatbot nếu bạn cấu hình route riêng
   } catch (err) {
-    error.value = err.message
+    error.value = err.message || 'Đăng nhập thất bại'
   }
 }
 </script>
+
 
 <style scoped>
 /* ✅ Toàn màn hình với gradient */

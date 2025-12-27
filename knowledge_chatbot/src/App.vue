@@ -1,12 +1,13 @@
 <template>
   <div id="app">
-    <!-- Hiển thị Navbar nếu người dùng đã đăng nhập -->
-    <Navbar v-if="auth.user" />
+    <Navbar v-if="auth.token" />
 
-    <!-- Router view cho các trang -->
-    <router-view />
+    <main class="page-container">
+      <router-view />
+    </main>
   </div>
 </template>
+
 
 <script setup>
 import Navbar from './components/Navbar.vue'
@@ -16,6 +17,11 @@ const auth = useAuthStore()
 </script>
 
 <style>
+  .page-container {
+  width: 100%;
+  padding-top: 64px; /* chiều cao navbar */
+}
+
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
@@ -26,6 +32,5 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 </style>

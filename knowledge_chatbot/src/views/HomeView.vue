@@ -91,14 +91,14 @@ export default {
 <style scoped>
 /* Toàn bộ nền giống Login */
 .home-wrapper {
-  width: 100vw;
-  height: 100vh;
+   width: 100vw;
+  min-height: calc(100vh - 64px); 
+  padding-top: 64px;
+
   background: rgb(77, 144, 254);
   display: flex;
   justify-content: center;
   align-items: center;
-  background-size: cover;
-  background-position: center;
 }
 
 /* Khung chat */
